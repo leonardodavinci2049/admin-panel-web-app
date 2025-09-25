@@ -46,5 +46,6 @@ tasks-project-next.md
 # others
 /docs
 tasks-project-next.md
+ecosystem.config.js
 /generated/prisma
 .github/copilot-instructions.md
