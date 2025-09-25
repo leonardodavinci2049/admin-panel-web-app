@@ -1,6 +1,6 @@
 # 🚀 Admin Panel Web App
 
-> **Painel Administrativo Empresarial** construído com Next.js 15 para gerenciamento completo de e-commerce
+> **Enterprise Administrative Dashboard** built with Next.js 15 for complete e-commerce management
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.3-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.1.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
@@ -9,109 +9,109 @@
 [![Prisma](https://img.shields.io/badge/Prisma-6.16.2-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 
-## 📋 Sobre o Projeto
+## 📋 About The Project
 
-**Admin Panel Web App** é um sistema completo de gerenciamento administrativo para e-commerce, desenvolvido com as mais modernas tecnologias do ecossistema React/Next.js. O projeto oferece uma interface intuitiva e poderosa para administração de:
+**Admin Panel Web App** is a complete e-commerce administrative management system, developed with the most modern technologies from the React/Next.js ecosystem. The project offers an intuitive and powerful interface for managing:
 
-- 📦 **Produtos**: Catálogo, categorias, estoque e precificação
-- 👥 **Clientes**: Registro, relacionamentos e histórico
-- 🛒 **Pedidos**: Vendas, status, pagamentos e entregas
-- 🔐 **Usuários**: Autenticação, permissões e perfis
-- 📊 **Relatórios**: Analytics, métricas e dashboards
+- 📦 **Products**: Catalog, categories, inventory and pricing
+- 👥 **Customers**: Registration, relationships and history
+- 🛒 **Orders**: Sales, status, payments and deliveries
+- 🔐 **Users**: Authentication, permissions and profiles
+- 📊 **Reports**: Analytics, metrics and dashboards
 
-## ✨ Principais Funcionalidades
+## ✨ Key Features
 
-- 🎨 **Interface Moderna**: Design responsivo com Tailwind CSS v4 e Shadcn/UI
-- 🔒 **Autenticação Robusta**: BetterAuth com Prisma Adapter
-- 📱 **Mobile-First**: Totalmente responsivo para todos os dispositivos
-- 🌙 **Dark/Light Mode**: Suporte completo a temas
-- ⚡ **Performance Otimizada**: Server Components e Turbopack
-- 🔍 **Busca Avançada**: Filtros e ordenação em todas as listagens
-- 📊 **Dashboards Interativos**: Gráficos e métricas em tempo real
-- 🛡️ **Segurança**: Validação com Zod e proteção CSRF
-- 🌐 **Internacionalização**: Suporte para múltiplos idiomas
+- 🎨 **Modern Interface**: Responsive design with Tailwind CSS v4 and Shadcn/UI
+- 🔒 **Robust Authentication**: BetterAuth with Prisma Adapter
+- 📱 **Mobile-First**: Fully responsive for all devices
+- 🌙 **Dark/Light Mode**: Complete theme support
+- ⚡ **Optimized Performance**: Server Components and Turbopack
+- 🔍 **Advanced Search**: Filters and sorting on all listings
+- 📊 **Interactive Dashboards**: Real-time charts and metrics
+- 🛡️ **Security**: Zod validation and CSRF protection
+- 🌐 **Internationalization**: Multi-language support
 
-## 🛠️ Stack Tecnológica
+## 🛠️ Technology Stack
 
 ### **Frontend**
 
-- **Next.js 15** - App Router com Turbopack
+- **Next.js 15** - App Router with Turbopack
 - **React 19** - Server Components (RSC)
-- **TypeScript 5** - Tipagem estática
-- **Tailwind CSS v4** - Estilização utilitária
-- **Shadcn/UI** - Componentes base
-- **Radix UI** - Primitivos acessíveis
+- **TypeScript 5** - Static typing
+- **Tailwind CSS v4** - Utility-first styling
+- **Shadcn/UI** - Base components
+- **Radix UI** - Accessible primitives
 
 ### **Backend**
 
-- **MySQL** - Banco de dados principal
-- **Prisma** - ORM moderno
-- **MySQL2** - Conexões diretas e procedures
-- **BetterAuth** - Sistema de autenticação
-- **Zod** - Validação de schemas
+- **MySQL** - Primary database
+- **Prisma** - Modern ORM
+- **MySQL2** - Direct connections and procedures
+- **BetterAuth** - Authentication system
+- **Zod** - Schema validation
 
 ### **UI/UX**
 
-- **Lucide React** - Ícones modernos
-- **Tabler Icons** - Ícones adicionais
-- **Next Themes** - Gerenciamento de temas
-- **Vaul** - Drawers mobile
-- **Recharts** - Visualizações de dados
-- **TanStack Table** - Tabelas avançadas
+- **Lucide React** - Modern icons
+- **Tabler Icons** - Additional icons
+- **Next Themes** - Theme management
+- **Vaul** - Mobile drawers
+- **Recharts** - Data visualizations
+- **TanStack Table** - Advanced tables
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 src/
 ├── app/                     # App Router (Next.js 15)
-│   ├── (auth)/             # Grupo de rotas de autenticação
-│   ├── dashboard/          # Painel principal
-│   │   ├── product/        # Gerenciamento de produtos
-│   │   ├── customer/       # Gerenciamento de clientes
-│   │   ├── orders/         # Gerenciamento de pedidos
-│   │   └── settings/       # Configurações
+│   ├── (auth)/             # Authentication route group
+│   ├── dashboard/          # Main dashboard
+│   │   ├── product/        # Product management
+│   │   ├── customer/       # Customer management
+│   │   ├── orders/         # Order management
+│   │   └── settings/       # Settings
 │   └── api/                # API Routes
-├── components/             # Componentes reutilizáveis
-│   ├── dashboard/          # Componentes do dashboard
+├── components/             # Reusable components
+│   ├── dashboard/          # Dashboard components
 │   ├── ui/                 # Shadcn/UI components
-│   └── common/             # Componentes comuns
-├── lib/                    # Bibliotecas e utilitários
-├── services/               # Serviços de dados
-├── hooks/                  # Hooks customizados
-├── types/                  # Definições de tipos
-└── utils/                  # Utilitários diversos
+│   └── common/             # Common components
+├── lib/                    # Libraries and utilities
+├── services/               # Data services
+├── hooks/                  # Custom hooks
+├── types/                  # Type definitions
+└── utils/                  # Miscellaneous utilities
 ```
 
-## 🚀 Início Rápido
+## 🚀 Getting Started
 
-### **Pré-requisitos**
+### **Prerequisites**
 
 - Node.js 18.17+
 - MySQL 8.0+
 - Git
 
-### **Instalação**
+### **Installation**
 
-1. **Clone o repositório**
+1. **Clone the repository**
 
    ```bash
    git clone https://github.com/leonardodavinci2049/admin-panel-web-app.git
    cd admin-panel-web-app
    ```
 
-2. **Instale as dependências**
+2. **Install dependencies**
 
    ```bash
    npm install
    ```
 
-3. **Configure as variáveis de ambiente**
+3. **Setup environment variables**
 
    ```bash
    cp .env.example .env.local
    ```
 
-   Edite o arquivo `.env.local` com suas configurações:
+   Edit the `.env.local` file with your settings:
 
    ```env
    # Application
@@ -124,58 +124,58 @@ src/
    BETTER_AUTH_SECRET=your_secret_key
    BETTER_AUTH_URL=http://localhost:5555
 
-   # Email (opcional)
+   # Email (optional)
    RESEND_API_KEY=your_resend_api_key
    ```
 
-4. **Configure o banco de dados**
+4. **Setup the database**
 
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
-5. **Inicie o servidor de desenvolvimento**
+5. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-6. **Acesse a aplicação**
+6. **Access the application**
 
-   Abra [http://localhost:5555](http://localhost:5555) no seu navegador
+   Open [http://localhost:5555](http://localhost:5555) in your browser
 
-## 📜 Scripts Disponíveis
+## � Available Scripts
 
-- `npm run dev` - Inicia o servidor de desenvolvimento (porta 5555)
-- `npm run build` - Cria build otimizada para produção
-- `npm run start` - Inicia o servidor em modo produção
-- `npm run lint` - Executa verificação de código com ESLint
+- `npm run dev` - Start development server (port 5555)
+- `npm run build` - Create optimized production build
+- `npm run start` - Start server in production mode
+- `npm run lint` - Run code linting with ESLint
 
-## 🔧 Configuração do Banco de Dados
+## 🔧 Database Configuration
 
-### **Schema Principal**
+### **Main Schema**
 
-O projeto utiliza um schema MySQL otimizado para e-commerce:
+The project uses a MySQL schema optimized for e-commerce:
 
-- `tbl_produto` - Produtos e variações
-- `tbl_categoria` - Categorias hierárquicas
-- `tbl_pessoa` - Clientes e usuários
-- `tbl_pedido` - Pedidos e transações
-- `tbl_usuario` - Sistema de usuários
+- `tbl_produto` - Products and variations
+- `tbl_categoria` - Hierarchical categories
+- `tbl_pessoa` - Customers and users
+- `tbl_pedido` - Orders and transactions
+- `tbl_usuario` - User system
 
 ### **Prisma Client**
 
-O cliente Prisma é gerado automaticamente em `/generated/prisma` e inclui:
+The Prisma client is automatically generated in `/generated/prisma` and includes:
 
-- Tipagem automática TypeScript
-- Query builder otimizado
-- Conexão pool management
-- Validação de dados integrada
+- Automatic TypeScript typing
+- Optimized query builder
+- Connection pool management
+- Integrated data validation
 
-## 🎨 Customização de Temas
+## 🎨 Theme Customization
 
-O projeto suporta temas customizáveis através do sistema de CSS Variables:
+The project supports customizable themes through the CSS Variables system:
 
 ```css
 :root {
@@ -183,68 +183,68 @@ O projeto suporta temas customizáveis através do sistema de CSS Variables:
   --foreground: 240 10% 3.9%;
   --primary: 240 5.9% 10%;
   --secondary: 240 4.8% 95.9%;
-  /* ... mais variáveis */
+  /* ... more variables */
 }
 ```
 
-## 🔒 Autenticação e Segurança
+## 🔒 Authentication and Security
 
-- **BetterAuth** com Prisma Adapter para persistência
-- **Proteção CSRF** automática
-- **Validação de entrada** com Zod em todas as APIs
-- **Sanitização XSS** nos dados de entrada
-- **Prevenção SQL Injection** via Prisma ORM
+- **BetterAuth** with Prisma Adapter for persistence
+- **Automatic CSRF protection**
+- **Input validation** with Zod on all APIs
+- **XSS sanitization** on input data
+- **SQL Injection prevention** via Prisma ORM
 
-## 📊 Dashboard e Analytics
+## 📊 Dashboard and Analytics
 
-O painel oferece visualizações abrangentes:
+The dashboard offers comprehensive visualizations:
 
-- **Métricas de vendas** em tempo real
-- **Gráficos interativos** com Recharts
-- **Tabelas avançadas** com ordenação e filtros
-- **Relatórios exportáveis** em PDF/Excel
-- **Alertas e notificações** automáticas
+- **Real-time sales metrics**
+- **Interactive charts** with Recharts
+- **Advanced tables** with sorting and filters
+- **Exportable reports** in PDF/Excel
+- **Automatic alerts and notifications**
 
-## 🚀 Deploy e Produção
+## 🚀 Deploy and Production
 
-### **Vercel (Recomendado)**
+### **Vercel (Recommended)**
 
-1. Conecte seu repositório GitHub à Vercel
-2. Configure as variáveis de ambiente
-3. Deploy automático a cada push
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables
+3. Automatic deployment on every push
 
 ### **Docker**
 
 ```bash
-# Build da imagem
+# Build image
 docker build -t admin-panel .
 
-# Executar container
+# Run container
 docker run -p 3000:3000 admin-panel
 ```
 
-## 📚 Documentação Adicional
+## 📚 Additional Documentation
 
-- [Guia de Contribuição](CONTRIBUTING.md)
+- [Contributing Guide](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
-- [Documentação da API](docs/api.md)
-- [Guia de Deploy](docs/deployment.md)
+- [API Documentation](docs/api.md)
+- [Deployment Guide](docs/deployment.md)
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Contribuições são sempre bem-vindas! Por favor, leia nosso [guia de contribuição](CONTRIBUTING.md) para saber como contribuir com o projeto.
+Contributions are always welcome! Please read our [contributing guide](CONTRIBUTING.md) to learn how to contribute to the project.
 
-1. Faça um Fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is under the MIT license. See the [LICENSE](LICENSE) file for more details.
 
-## 👨‍💻 Desenvolvedor
+## 👨‍💻 Developer
 
 **Leonardo Da Vinci**
 
@@ -255,8 +255,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 <div align="center">
 
-**Desenvolvido com ❤️ usando Next.js 15**
+**Built with ❤️ using Next.js 15**
 
-[⬆ Voltar ao topo](#-admin-panel-web-app)
+[⬆ Back to top](#-admin-panel-web-app)
 
 </div>
