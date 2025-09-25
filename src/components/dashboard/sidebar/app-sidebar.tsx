@@ -19,7 +19,6 @@ import {
 import { NavMain } from "@/components/dashboard/sidebar/components/nav-main";
 import { NavProjects } from "@/components/dashboard/sidebar/components/nav-projects";
 import { NavSecondary } from "@/components/dashboard/sidebar/components/nav-secondary";
-import { NavUser } from "@/components/dashboard/sidebar/components/nav-user";
 import { TeamSwitcher } from "@/components/dashboard/sidebar/components/team-switcher";
 import {
   Sidebar,
@@ -35,12 +34,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   // This is sample data.
   const data = {
-    user: {
-      name: "Admin",
-      email: "admin@dashboard.com",
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&fit=crop&crop=face",
-    },
     teams: [
       {
         name: "Acme Inc",
@@ -183,7 +176,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: Search,
       },
     ],
-     
   };
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -195,9 +187,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      <SidebarFooter>{/* NavUser foi migrado para o header */}</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

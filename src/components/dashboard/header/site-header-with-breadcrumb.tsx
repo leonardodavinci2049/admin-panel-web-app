@@ -12,6 +12,7 @@ import { Suspense } from "react";
 
 import { LogoutEverywhereButton } from "@/app/(auth)/logout/logout-everywhere-button";
 import ModeToggle from "@/components/header-01/mode-toggle";
+import { HeaderNavUser } from "@/components/dashboard/header/header-nav-user";
 
 interface SiteHeaderWithBreadcrumbProps {
   title?: string;
@@ -68,7 +69,14 @@ export function SiteHeaderWithBreadcrumb({
           <Suspense>
             <ModeToggle />
           </Suspense>
-          <LogoutEverywhereButton />
+
+          <Suspense
+            fallback={
+              <div className="bg-muted/30 h-10 w-32 animate-pulse rounded-full" />
+            }
+          >
+            <HeaderNavUser />
+          </Suspense>
         </div>
       </div>
     </header>
