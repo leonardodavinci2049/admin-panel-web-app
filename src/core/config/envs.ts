@@ -26,6 +26,35 @@ const envsSchema = z.object({
     .transform((val) => parseInt(val, 10))
     .pipe(z.number().positive("TYPE_BUSINESS must be a positive number")),
 
+  // INFO DEVELOPER - Variáveis públicas (disponíveis no cliente)
+  // Usadas para exibir informações do desenvolvedor no footer/sobre
+  NEXT_PUBLIC_DEVELOPER_NAME: z
+    .string()
+    .min(1, "NEXT_PUBLIC_DEVELOPER_NAME is required"),
+  NEXT_PUBLIC_DEVELOPER_URL: z
+    .string()
+    .url("NEXT_PUBLIC_DEVELOPER_URL must be a valid URL"),
+
+  // INFO COMPANY - Variáveis públicas da empresa (disponíveis no cliente)
+  // Usadas para exibir informações de contato da empresa
+  NEXT_PUBLIC_COMPANY_NAME: z
+    .string()
+    .min(1, "NEXT_PUBLIC_COMPANY_NAME is required"),
+  NEXT_PUBLIC_COMPANY_PHONE: z
+    .string()
+    .regex(
+      /^\(\d{2}\) \d{4}-\d{4}$/,
+      "NEXT_PUBLIC_COMPANY_PHONE must be in format (XX) XXXX-XXXX",
+    ),
+  NEXT_PUBLIC_COMPANY_EMAIL: z
+    .string()
+    .email("NEXT_PUBLIC_COMPANY_EMAIL must be a valid email"),
+  NEXT_PUBLIC_COMPANY_WHATSAPP: z
+    .string()
+    .regex(
+      /^55\d{11}$/,
+      "NEXT_PUBLIC_COMPANY_WHATSAPP must be in format 55XXXXXXXXXXX (country code + area code + number)",
+    ),
   // Internacionalização (i18n)
   DEFAULT_LOCALE: z
     .string()
@@ -74,8 +103,8 @@ if (typeof window === "undefined") {
 
   envVars = validationResult.data;
 } else {
-  // Estamos no cliente - usar valores vazios ou default
-  // Estas variáveis NÃO devem ser acessadas no cliente!
+  // Estamos no cliente - usar valores vazios ou default para variáveis privadas
+  // e valores reais para variáveis públicas (NEXT_PUBLIC_*)
   envVars = {
     APP_PORT: 0,
 
@@ -83,6 +112,17 @@ if (typeof window === "undefined") {
     STORE_ID: 0,
     APP_ID: 0,
     TYPE_BUSINESS: 0,
+
+    // Estas variáveis públicas PODEM ser acessadas no cliente
+    NEXT_PUBLIC_DEVELOPER_NAME: process.env.NEXT_PUBLIC_DEVELOPER_NAME || "",
+    NEXT_PUBLIC_DEVELOPER_URL: process.env.NEXT_PUBLIC_DEVELOPER_URL || "",
+
+    // Informações da empresa - também disponíveis no cliente
+    NEXT_PUBLIC_COMPANY_NAME: process.env.NEXT_PUBLIC_COMPANY_NAME || "",
+    NEXT_PUBLIC_COMPANY_PHONE: process.env.NEXT_PUBLIC_COMPANY_PHONE || "",
+    NEXT_PUBLIC_COMPANY_EMAIL: process.env.NEXT_PUBLIC_COMPANY_EMAIL || "",
+    NEXT_PUBLIC_COMPANY_WHATSAPP:
+      process.env.NEXT_PUBLIC_COMPANY_WHATSAPP || "",
 
     // i18n - estas podem ser acessadas no cliente
     DEFAULT_LOCALE: (process.env.NEXT_PUBLIC_DEFAULT_LOCALE || "pt") as
@@ -110,6 +150,16 @@ export const envs = {
   STORE_ID: envVars.STORE_ID,
   APP_ID: envVars.APP_ID,
   TYPE_BUSINESS: envVars.TYPE_BUSINESS,
+
+  // INFO DEVELOPER
+  NEXT_PUBLIC_DEVELOPER_NAME: envVars.NEXT_PUBLIC_DEVELOPER_NAME,
+  NEXT_PUBLIC_DEVELOPER_URL: envVars.NEXT_PUBLIC_DEVELOPER_URL,
+
+  // INFO COMPANY
+  NEXT_PUBLIC_COMPANY_NAME: envVars.NEXT_PUBLIC_COMPANY_NAME,
+  NEXT_PUBLIC_COMPANY_PHONE: envVars.NEXT_PUBLIC_COMPANY_PHONE,
+  NEXT_PUBLIC_COMPANY_EMAIL: envVars.NEXT_PUBLIC_COMPANY_EMAIL,
+  NEXT_PUBLIC_COMPANY_WHATSAPP: envVars.NEXT_PUBLIC_COMPANY_WHATSAPP,
 
   // i18n - Disponível tanto no servidor quanto no cliente
   DEFAULT_LOCALE: envVars.DEFAULT_LOCALE,

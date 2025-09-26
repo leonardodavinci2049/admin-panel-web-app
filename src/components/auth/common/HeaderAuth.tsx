@@ -20,38 +20,7 @@ export default function HeaderAuth() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center space-x-6 lg:flex">
-          <Link
-            href="/"
-            className="hover:text-primary text-sm font-medium transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="hover:text-primary text-sm font-medium transition-colors"
-          >
-            Sobre
-          </Link>
-          <Link
-            href="/privacy"
-            className="hover:text-primary text-sm font-medium transition-colors"
-          >
-            Privacidade
-          </Link>
-          <Link
-            href="/terms"
-            className="hover:text-primary text-sm font-medium transition-colors"
-          >
-            Termos
-          </Link>
-          <Link
-            href="/contact"
-            className="hover:text-primary text-sm font-medium transition-colors"
-          >
-            Contato
-          </Link>
-        </nav>
+
 
         <div className="flex items-center space-x-1 sm:space-x-2">
           <Suspense>
