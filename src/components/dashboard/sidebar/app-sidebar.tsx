@@ -2,12 +2,9 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
-  Command,
   Frame,
-  GalleryVerticalEnd,
   HelpCircle,
   Map,
   PieChart,
@@ -19,7 +16,7 @@ import {
 import { NavMain } from "@/components/dashboard/sidebar/components/nav-main";
 import { NavProjects } from "@/components/dashboard/sidebar/components/nav-projects";
 import { NavSecondary } from "@/components/dashboard/sidebar/components/nav-secondary";
-import { TeamSwitcher } from "@/components/dashboard/sidebar/components/team-switcher";
+import { SidebarLogo } from "@/components/dashboard/sidebar/components/sidebar-logo";
 import {
   Sidebar,
   SidebarContent,
@@ -34,23 +31,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   // This is sample data.
   const data = {
-    teams: [
-      {
-        name: "Acme Inc",
-        logo: GalleryVerticalEnd,
-        plan: "Enterprise",
-      },
-      {
-        name: "Acme Corp.",
-        logo: AudioWaveform,
-        plan: "Startup",
-      },
-      {
-        name: "Evil Corp.",
-        logo: Command,
-        plan: "Free",
-      },
-    ],
     navMain: [
       {
         title: t("dashboard.navigation.products"),
@@ -180,7 +160,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarLogo />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
