@@ -95,6 +95,10 @@
       "profile": "Profile",
       "logout": "Logout",
       "categories": "Categories",
+      "brands": "Brands",
+      "suppliers": "Suppliers",
+      "carriers": "Carriers",
+      "productEntry": "Product Entry",
       "reports": "Reports",
       "analytics": "Analytics"
     },

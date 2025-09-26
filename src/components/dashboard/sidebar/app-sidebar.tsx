@@ -88,7 +88,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
       {
-        title: t("Marcas"),
+        title: t("dashboard.navigation.brands"),
         url: "#",
         icon: Bot,
         items: [
@@ -104,7 +104,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
       {
-        title: t("Fornecedores"),
+        title: t("dashboard.navigation.suppliers"),
         url: "#",
         icon: Bot,
         items: [
@@ -120,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
       {
-        title: t("Transportadoras"),
+        title: t("dashboard.navigation.carriers"),
         url: "#",
         icon: Bot,
         items: [
@@ -165,7 +165,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       },
 
       {
-        title: t("Entrada de Produtos"),
+        title: t("dashboard.navigation.productEntry"),
         url: "#",
         icon: Bot,
         items: [
