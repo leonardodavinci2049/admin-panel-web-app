@@ -1,8 +1,9 @@
-import UnderDevelopment from '@/components/common/under-development';
-import React from 'react'
+
+import UnderDevelopment from "@/components/common/under-development";
+import React from "react";
 
 const NewCategoryPage = () => {
-  return <UnderDevelopment title="Nova Categoria" />;
-}
+  return <UnderDevelopment title="Nova categoria" />;
+};
 
-export default NewCategoryPage
+export default NewCategoryPage;

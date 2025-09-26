@@ -1,8 +1,11 @@
-import React from "react";
 import UnderDevelopment from "@/components/common/under-development";
+import React from "react";
+
+
 
 const CategoryDetailsPage = () => {
-  return <UnderDevelopment title="Página Detalhes da Categoria" />;
+  return <UnderDevelopment title="Detalhes da categoria" />;
+
 };
 
 export default CategoryDetailsPage;

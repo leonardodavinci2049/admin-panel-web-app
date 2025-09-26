@@ -1,9 +1,8 @@
+import UnderDevelopment from '@/components/common/under-development';
 import React from 'react'
 
 const LatestOrdersPage = () => {
-  return (
-    <div>Latest Orders Page</div>
-  )
+  return <UnderDevelopment title="Últimos Pedidos" />;
 }
 
 export default LatestOrdersPage

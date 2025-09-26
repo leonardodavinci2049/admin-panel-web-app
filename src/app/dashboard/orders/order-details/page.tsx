@@ -1,9 +1,8 @@
+import UnderDevelopment from '@/components/common/under-development';
 import React from 'react'
 
 const OrderDetailsPage = () => {
-  return (
-    <div>Order Details Page</div>
-  )
+  return <UnderDevelopment title="Detalhes do Pedido" />;
 }
 
 export default OrderDetailsPage

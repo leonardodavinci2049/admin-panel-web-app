@@ -1,9 +1,8 @@
+import UnderDevelopment from '@/components/common/under-development';
 import React from 'react'
 
 const SalesReportsPage = () => {
-  return (
-    <div>Sales Reports Page</div>
-  )
+  return <UnderDevelopment title="Relatórios de Vendas" />;
 }
 
 export default SalesReportsPage

@@ -1,9 +1,9 @@
-import React from 'react'
+
+import UnderDevelopment from "@/components/common/under-development";
+import React from "react";
 
 const NewProductPage = () => {
-  return (
-    <div>New Product Page</div>
-  )
-}
+  return <UnderDevelopment title="Novo Produto" />;
+};
 
-export default NewProductPage
+export default NewProductPage;
