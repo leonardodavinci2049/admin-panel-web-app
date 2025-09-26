@@ -5,12 +5,13 @@ import {
   BookOpen,
   Bot,
   Frame,
-  HelpCircle,
+  SettingsIcon,
   Map,
   PieChart,
-  Search,
   Settings2,
   SquareTerminal,
+  Zap,
+  User,
 } from "lucide-react";
 
 import { NavMain } from "@/components/dashboard/sidebar/components/nav-main";
@@ -32,6 +33,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   // This is sample data.
   const data = {
     navMain: [
+      {
+        title: t("dashboard.navigation.orders"),
+        url: "#",
+        icon: Settings2,
+        items: [
+          {
+            title: "Painel Geral",
+            url: "/dashboard/",
+          },
+          {
+            title: "Lista de Pedidos",
+            url: "/dashboard/orders/order-list",
+          },
+        ],
+      },
       {
         title: t("dashboard.navigation.products"),
         url: "#",
@@ -72,6 +88,55 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ],
       },
       {
+        title: t("Marcas"),
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Lista de Marcas",
+            url: "/dashboard/development",
+          },
+
+          {
+            title: "Nova Marca",
+            url: "/dashboard/development",
+          },
+        ],
+      },
+      {
+        title: t("Fornecedores"),
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Lista de Fornecedores",
+            url: "/dashboard/development",
+          },
+
+          {
+            title: "Nova Fornecedor",
+            url: "/dashboard/development",
+          },
+        ],
+      },
+      {
+        title: t("Transportadoras"),
+        url: "#",
+        icon: Bot,
+        items: [
+          {
+            title: "Lista de Transportadoras",
+            url: "/dashboard/development",
+          },
+
+          {
+            title: "Nova Transportadora",
+            url: "/dashboard/development",
+          },
+        ],
+      },
+
+      {
         title: t("dashboard.navigation.customers"),
         url: "#",
         icon: BookOpen,
@@ -98,43 +163,37 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
         ],
       },
+
       {
-        title: t("dashboard.navigation.orders"),
+        title: t("Entrada de Produtos"),
         url: "#",
-        icon: Settings2,
+        icon: Bot,
         items: [
           {
-            title: "Lista de Pedidos",
-            url: "/dashboard/orders/order-list",
+            title: "Lista Entradas",
+            url: "/dashboard/development",
           },
+
           {
-            title: "Detalhes do Pedido",
-            url: "/dashboard/orders/order-details",
-          },
-          {
-            title: "Relatórios de vendas",
-            url: "/dashboard/orders/sales-reports",
-          },
-          {
-            title: "Últimos pedidos",
-            url: "/dashboard/orders/latest-orders",
+            title: "Nova Entrada",
+            url: "/dashboard/development",
           },
         ],
       },
     ],
-    projects: [
+    report: [
       {
-        name: "Design Engineering",
+        name: "Relatórios Pedidos",
         url: "#",
         icon: Frame,
       },
       {
-        name: "Sales & Marketing",
+        name: "Relatórios Clientes",
         url: "#",
         icon: PieChart,
       },
       {
-        name: "Travel",
+        name: "Relatórios Produtos",
         url: "#",
         icon: Map,
       },
@@ -143,17 +202,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {
         title: t("dashboard.navigation.settings"),
         url: "/dashboard/settings",
-        icon: Settings2,
+        icon: SettingsIcon,
       },
       {
-        title: "Get Help",
+        title: "Usuários",
         url: "#",
-        icon: HelpCircle,
+        icon: User,
       },
       {
-        title: "Search",
+        title: "Integrações",
         url: "#",
-        icon: Search,
+        icon: Zap,
       },
     ],
   };
@@ -164,7 +223,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavProjects projects={data.report} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>{/* NavUser foi migrado para o header */}</SidebarFooter>
