@@ -17,10 +17,10 @@ export default function LoginPage() {
         <div className="p-6 md:p-10">
           <div className="relative h-full w-full overflow-hidden rounded-lg">
             <Image
-              src="/placeholder.svg"
+              src="/images/logo/logo-auth.png"
               alt="Dashboard Background"
               fill
-              className="object-cover dark:brightness-[0.2] dark:grayscale"
+              className="object-cover  "
               priority
             />
           </div>
