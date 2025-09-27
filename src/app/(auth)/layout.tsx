@@ -7,7 +7,12 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div
+      className="flex min-h-screen flex-col bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/images/auh/background-auth.webp')",
+      }}
+    >
       {/* Main Content */}
       <HeaderAuth />
 

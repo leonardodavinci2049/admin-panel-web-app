@@ -20,7 +20,7 @@ export default function LoginPage() {
               src="/images/logo/logo-auth.png"
               alt="Dashboard Background"
               fill
-              className="object-cover  "
+              className="object-cover"
               priority
             />
           </div>
