@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import ForgotPasswordForm from "./ForgotPasswordForm";
+import ForgotPasswordForm from "./components/ForgotPasswordForm";
 import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
