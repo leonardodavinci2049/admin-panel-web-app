@@ -3,7 +3,11 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { envs } from "@/core/config";
-import { sendEmail } from "./email";
+import { Resend } from "resend";
+import TemplateVerifyEmail from "@/components/emails/TemplateVerifyEmail.tsx";
+import TemplateForgotPasswordEmail from "@/components/emails/TemplateForgotPasswordEmail";
+
+const resend = new Resend(envs.RESEND_API_KEY);
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -18,26 +22,51 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    trustedOrigins: [envs.BETTER_AUTH_URL],
-    // requireEmailVerification: true, // Only if you want to block login completely
-    async sendResetPassword({ user, url }) {
-      await sendEmail({
-        to: user.email,
-        subject: "Reset your password",
-        text: `Click the link to reset your password: ${url}`,
-      });
+    sendResetPassword: async ({ user, url }) => {
+      try {
+        //    console.log(`🔄 Enviando email de reset de senha para: ${user.email}`);
+
+        await resend.emails.send({
+          from: `${envs.EMAIL_SENDER_NAME} <${envs.EMAIL_SENDER_ADDRESS}>`,
+          to: user.email,
+          subject: "Reset your password",
+          react: TemplateForgotPasswordEmail({
+            userName: user.name || user.email,
+            resetUrl: url,
+            userEmail: user.email,
+          }),
+        });
+
+        // console.log(`✅ Email de reset enviado com sucesso:`, result);
+      } catch (error) {
+        console.error(`❌ Erro ao enviar email de reset de senha:`, error);
+        throw error;
+      }
     },
+    requireEmailVerification: false, // Temporariamente desabilitado para evitar problemas de UX
   },
   emailVerification: {
-    sendOnSignUp: true,
-    autoSignInAfterVerification: true,
-    async sendVerificationEmail({ user, url }) {
-      await sendEmail({
-        to: user.email,
-        subject: "Verify your email",
-        text: `Click the link to verify your email: ${url}`,
-      });
+    sendVerificationEmail: async ({ user, url }) => {
+      try {
+        //  console.log(`🔄 Enviando email de verificação para: ${user.email}`);
+
+        const result = await resend.emails.send({
+          from: `${envs.EMAIL_SENDER_NAME} <${envs.EMAIL_SENDER_ADDRESS}>`,
+          to: user.email,
+          subject: "Verify your email",
+          react: TemplateVerifyEmail({
+            userEmail: user.name || user.email,
+            resetLink: url,
+          }),
+        });
+
+        console.log(`✅ Email de verificação enviado com sucesso:`, result);
+      } catch (error) {
+        console.error(`❌ Erro ao enviar email de verificação:`, error);
+        throw error;
+      }
     },
+    sendOnSignUp: false, // Temporariamente desabilitado
   },
 
   plugins: [nextCookies()],

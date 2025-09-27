@@ -60,6 +60,7 @@
       "title": "Esqueceu sua senha?",
       "subtitle": "Digite seu email para receber instruções de recuperação",
       "email": "Email",
+      "submit": "Enviar instruções",
       "sendInstructions": "Enviar instruções",
       "backToLogin": "Voltar ao login",
       "checkEmail": "Verifique seu email",
