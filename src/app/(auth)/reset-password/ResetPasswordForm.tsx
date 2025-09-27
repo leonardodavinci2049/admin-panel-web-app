@@ -106,62 +106,63 @@ const ResetPasswordForm = ({ token }: ResetPasswordFormProps) => {
         </p>
       </div>
 
-      <form onSubmit={onSubmit} className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor={`newPassword-${formId}`}>
-            {t("auth.resetPassword.newPassword")}
-          </Label>
-          <Input
-            id={`newPassword-${formId}`}
-            name="password"
-            type="password"
-            placeholder={t("auth.login.passwordPlaceholder")}
-            required
-            autoComplete="new-password"
-            className={cn(
-              errors?.password &&
-                "border-destructive focus-visible:ring-destructive",
+      <div className="grid gap-6">
+        <form onSubmit={onSubmit} className="grid gap-6">
+          <div className="grid gap-3">
+            <Label htmlFor={`newPassword-${formId}`}>
+              {t("auth.resetPassword.newPassword")}
+            </Label>
+            <Input
+              id={`newPassword-${formId}`}
+              name="password"
+              type="password"
+              placeholder={t("auth.login.passwordPlaceholder")}
+              required
+              autoComplete="new-password"
+              className={cn(
+                errors?.password &&
+                  "border-destructive focus-visible:ring-destructive",
+              )}
+            />
+            {errors?.password && (
+              <p className="text-destructive text-sm">{errors.password}</p>
             )}
-          />
-          {errors?.password && (
-            <p className="text-destructive text-sm">{errors.password}</p>
-          )}
-        </div>
+          </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor={`confirmPassword-${formId}`}>
-            {t("auth.resetPassword.confirmPassword")}
-          </Label>
-          <Input
-            id={`confirmPassword-${formId}`}
-            name="confirmPassword"
-            type="password"
-            placeholder={t("auth.signup.confirmPasswordPlaceholder")}
-            required
-            autoComplete="new-password"
-            className={cn(
-              errors?.confirmPassword &&
-                "border-destructive focus-visible:ring-destructive",
+          <div className="grid gap-3">
+            <Label htmlFor={`confirmPassword-${formId}`}>
+              {t("auth.resetPassword.confirmPassword")}
+            </Label>
+            <Input
+              id={`confirmPassword-${formId}`}
+              name="confirmPassword"
+              type="password"
+              placeholder={t("auth.signup.confirmPasswordPlaceholder")}
+              required
+              autoComplete="new-password"
+              className={cn(
+                errors?.confirmPassword &&
+                  "border-destructive focus-visible:ring-destructive",
+              )}
+            />
+            {errors?.confirmPassword && (
+              <p className="text-destructive text-sm">
+                {errors.confirmPassword}
+              </p>
             )}
-          />
-          {errors?.confirmPassword && (
-            <p className="text-destructive text-sm">{errors.confirmPassword}</p>
-          )}
-        </div>
+          </div>
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Redefinindo..." : t("auth.resetPassword.resetButton")}
-        </Button>
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Redefinindo..." : t("auth.resetPassword.resetButton")}
+          </Button>
+        </form>
+      </div>
 
-        <div className="text-center">
-          <a
-            href="/sign-in"
-            className="hover:text-primary text-sm underline underline-offset-4"
-          >
-            {t("auth.forgotPassword.backToLogin")}
-          </a>
-        </div>
-      </form>
+      <div className="text-center text-sm">
+        <a href="/sign-in" className="underline underline-offset-4">
+          {t("auth.forgotPassword.backToLogin")}
+        </a>
+      </div>
 
       {/* Token oculto para debugging */}
       <input type="hidden" value={token} />

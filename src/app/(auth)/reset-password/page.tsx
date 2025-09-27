@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import ResetPasswordForm from "./ResetPasswordForm";
-
+import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
-  title: "Reset password",
+  title: "Redefinir senha",
 };
 
 interface ResetPasswordPageProps {
@@ -16,15 +17,19 @@ export default async function ResetPasswordPage({
   const { token } = await searchParams;
 
   return (
-    <main className="flex min-h-svh items-center justify-center px-4">
+    <div className="flex items-center justify-center p-4">
       {token ? (
         <ResetPasswordUI token={token} />
       ) : (
-        <div role="alert" className="text-red-600">
-          Token is missing.
+        <div className="flex items-center justify-center">
+          <Card className="bg-card/50 border-0 p-8 shadow-2xl backdrop-blur-sm">
+            <div role="alert" className="text-center text-red-600">
+              Token está ausente.
+            </div>
+          </Card>
         </div>
       )}
-    </main>
+    </div>
   );
 }
 
@@ -34,12 +39,33 @@ interface ResetPasswordUIProps {
 
 function ResetPasswordUI({ token }: ResetPasswordUIProps) {
   return (
-    <div className="w-full space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold">Reset password</h1>
-        <p className="text-muted-foreground">Enter your new password below.</p>
+    <>
+      {/* Card para telas grandes com formulário e imagem */}
+      <Card className="bg-card/50 hidden w-full max-w-5xl overflow-hidden border-0 shadow-2xl backdrop-blur-sm lg:grid lg:h-[600px] lg:grid-cols-2">
+        <div className="flex flex-col gap-4 p-6 md:p-10">
+          <div className="flex flex-1 items-center justify-center">
+            <div className="w-full max-w-sm">
+              <ResetPasswordForm token={token} />
+            </div>
+          </div>
+        </div>
+        <div className="p-6 md:p-10">
+          <div className="relative h-full w-full overflow-hidden rounded-lg">
+            <Image
+              src="/images/logo/logo-auth.png"
+              alt="Dashboard Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
+      </Card>
+
+      {/* Formulário simples para telas menores */}
+      <div className="w-full max-w-sm lg:hidden">
+        <ResetPasswordForm token={token} />
       </div>
-      <ResetPasswordForm token={token} />
-    </div>
+    </>
   );
 }
