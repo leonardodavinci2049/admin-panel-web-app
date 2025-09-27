@@ -25,6 +25,56 @@ export const loginSchema = z.object({
 export type LoginFormData = z.infer<typeof loginSchema>;
 
 /**
+ * Schema de validação para o formulário de forgot password
+ * Valida apenas o email para recuperação de senha
+ */
+export const forgotPasswordSchema = z.object({
+  email: z
+    .string({ message: "O email é obrigatório." })
+    .min(1, "O email é obrigatório.")
+    .email("Por favor, insira um email válido.")
+    .max(255, "O email deve ter no máximo 255 caracteres.")
+    .toLowerCase()
+    .transform((email) => email.trim()),
+});
+
+/**
+ * Tipo TypeScript inferido do schema de forgot password
+ */
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
+
+/**
+ * Schema de validação para o formulário de reset password
+ * Valida nova senha e confirmação de senha
+ */
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string({ message: "A nova senha é obrigatória." })
+      .min(1, "A nova senha é obrigatória.")
+      .min(8, "A nova senha deve ter pelo menos 8 caracteres.")
+      .max(128, "A nova senha deve ter no máximo 128 caracteres.")
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        "A nova senha deve conter pelo menos: 1 letra minúscula, 1 maiúscula e 1 número.",
+      )
+      .regex(/^[^\s]*$/, "A nova senha não pode conter espaços."),
+
+    confirmPassword: z
+      .string({ message: "A confirmação da senha é obrigatória." })
+      .min(1, "A confirmação da senha é obrigatória."),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não coincidem.",
+    path: ["confirmPassword"],
+  });
+
+/**
+ * Tipo TypeScript inferido do schema de reset password
+ */
+export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+/**
  * Schema de validação para o formulário de cadastro
  * Inclui validações robustas com mensagens amigáveis em português
  */
@@ -99,6 +149,84 @@ export type RegisterWithConfirmFormData = z.infer<
 export function validateLoginData(data: unknown) {
   try {
     const validatedData = loginSchema.parse(data);
+    return {
+      success: true,
+      data: validatedData,
+      errors: null,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatar erros para exibição amigável
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, err) => {
+          const field = err.path[0] as string;
+          acc[field] = err.message;
+          return acc;
+        },
+        {},
+      );
+
+      return {
+        success: false,
+        data: null,
+        errors: formattedErrors,
+      };
+    }
+
+    return {
+      success: false,
+      data: null,
+      errors: { general: "Erro de validação inesperado." },
+    };
+  }
+}
+
+/**
+ * Função utilitária para validar dados do formulário de forgot password
+ * Retorna dados validados ou erros formatados
+ */
+export function validateForgotPasswordData(data: unknown) {
+  try {
+    const validatedData = forgotPasswordSchema.parse(data);
+    return {
+      success: true,
+      data: validatedData,
+      errors: null,
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      // Formatar erros para exibição amigável
+      const formattedErrors = error.issues.reduce(
+        (acc: Record<string, string>, err) => {
+          const field = err.path[0] as string;
+          acc[field] = err.message;
+          return acc;
+        },
+        {},
+      );
+
+      return {
+        success: false,
+        data: null,
+        errors: formattedErrors,
+      };
+    }
+
+    return {
+      success: false,
+      data: null,
+      errors: { general: "Erro de validação inesperado." },
+    };
+  }
+}
+
+/**
+ * Função utilitária para validar dados do formulário de reset password
+ * Retorna dados validados ou erros formatados
+ */
+export function validateResetPasswordData(data: unknown) {
+  try {
+    const validatedData = resetPasswordSchema.parse(data);
     return {
       success: true,
       data: validatedData,
@@ -258,6 +386,11 @@ export const errorMessages = {
   invalidCredentials: "Email ou senha incorretos.",
   accountDisabled: "Conta desabilitada. Entre em contato com o suporte.",
   loginSuccess: "Login realizado com sucesso!",
+
+  // Forgot password
+  forgotPasswordSuccess: "Enviamos instruções de recuperação para seu email.",
+  emailNotFound: "Email não encontrado em nossa base de dados.",
+  forgotPasswordError: "Erro ao enviar email de recuperação. Tente novamente.",
 
   // Sucesso
   registerSuccess: "Conta criada com sucesso! Bem-vindo(a)!",
