@@ -79,6 +79,13 @@ const envsSchema = z.object({
 
   BETTER_AUTH_URL: z.string().min(1, "BETTER_AUTH_URL is required"),
 
+  // Resend Email Configuration
+  RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required"),
+  EMAIL_SENDER_NAME: z.string().min(1, "EMAIL_SENDER_NAME is required"),
+  EMAIL_SENDER_ADDRESS: z
+    .string()
+    .email("EMAIL_SENDER_ADDRESS must be a valid email"),
+
   // Google OAuth
   GOOGLE_CLIENT_ID: z.string().min(1, "GOOGLE_CLIENT_ID is required"),
   GOOGLE_CLIENT_SECRET: z.string().min(1, "GOOGLE_CLIENT_SECRET is required"),
@@ -137,6 +144,11 @@ if (typeof window === "undefined") {
     DB_MYSQL_DATABASE: "",
     BETTER_AUTH_URL: "",
 
+    // Resend - não devem ser acessadas no cliente
+    RESEND_API_KEY: "",
+    EMAIL_SENDER_NAME: "",
+    EMAIL_SENDER_ADDRESS: "",
+
     // Google OAuth - não devem ser acessadas no cliente
     GOOGLE_CLIENT_ID: "",
     GOOGLE_CLIENT_SECRET: "",
@@ -171,6 +183,11 @@ export const envs = {
   DB_MYSQL_PASSWORD: envVars.DB_MYSQL_PASSWORD,
   DB_MYSQL_DATABASE: envVars.DB_MYSQL_DATABASE,
   BETTER_AUTH_URL: envVars.BETTER_AUTH_URL,
+
+  // Resend Email Configuration
+  RESEND_API_KEY: envVars.RESEND_API_KEY,
+  EMAIL_SENDER_NAME: envVars.EMAIL_SENDER_NAME,
+  EMAIL_SENDER_ADDRESS: envVars.EMAIL_SENDER_ADDRESS,
 
   // Google OAuth
   GOOGLE_CLIENT_ID: envVars.GOOGLE_CLIENT_ID,
