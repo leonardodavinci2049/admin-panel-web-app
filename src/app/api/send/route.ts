@@ -1,4 +1,4 @@
-import ForgotPasswordEmail from "@/app/(auth)/reset-password/components/reset-password";
+import ForgotPasswordEmail from "@/app/(auth)/reset-password/components/TemplateRequestPassword";
 import { NextResponse } from "next/server";
 
 import { Resend } from "resend";
