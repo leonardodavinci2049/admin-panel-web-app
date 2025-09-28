@@ -1,4 +1,4 @@
-import ForgotPasswordEmail from "@/app/(auth)/forgot-password/components/TemplateRequestPassword";
+import ForgotPasswordEmail from "@/components/emails/TemplateForgotPasswordEmail";
 import { NextResponse } from "next/server";
 
 import { Resend } from "resend";
@@ -12,8 +12,9 @@ export async function POST() {
       to: ["delivered@resend.dev"],
       subject: "Hello world",
       react: ForgotPasswordEmail({
+        userName: "Usuário Exemplo",
         userEmail: "example@gmail.com",
-        resetLink: "https://example.com/reset-password",
+        resetUrl: "https://example.com/reset-password",
       }),
     });
 
