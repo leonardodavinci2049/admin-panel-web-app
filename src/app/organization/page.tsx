@@ -12,6 +12,11 @@ import Link from "next/link";
 import { getOrganizations } from "@/server/organizations";
 import { CreateOrganizationForm } from "@/components/forms/create-organization-form";
 
+// Tipo para a organização retornada pela função getOrganizations
+type OrganizationWithDetails = Awaited<
+  ReturnType<typeof getOrganizations>
+>[number];
+
 // Força renderização dinâmica devido ao uso de headers() na autenticação
 export const dynamic = "force-dynamic";
 const OrganizationPage = async () => {
@@ -35,7 +40,7 @@ const OrganizationPage = async () => {
 
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold">Organizations</h2>
-        {organizations.map((organization) => (
+        {organizations.map((organization: OrganizationWithDetails) => (
           <Button variant="outline" key={organization.id} asChild>
             <Link href={`/dashboard/organization/${organization.slug}`}>
               {organization.name}
