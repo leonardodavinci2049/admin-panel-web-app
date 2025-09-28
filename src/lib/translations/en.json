@@ -42,8 +42,16 @@
       "termsAndConditions": "I accept the terms and conditions",
       "success": {
         "title": "Registration Successful!",
-        "subtitle": "Your account has been created and is awaiting approval",
-        "message": "You will receive an email notification as soon as your account is approved and ready for access.",
+        "subtitle": "Your account has been created! Follow the next steps to activate your account:",
+        "step1": {
+          "title": "Confirm your Email",
+          "message": "We sent a confirmation link to your email. Click the link to verify your email address."
+        },
+        "step2": {
+          "title": "Wait for Approval",
+          "message": "After confirming your email, our team will review your registration. You will receive an email notification when your account is approved."
+        },
+        "emailNote": "Don't forget to check your spam folder if you can't find the confirmation email.",
         "backToLogin": "Back to Login",
         "thankYou": "Thank you for registering!"
       },

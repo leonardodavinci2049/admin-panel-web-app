@@ -42,8 +42,16 @@
       "termsAndConditions": "Aceito os termos e condições",
       "success": {
         "title": "Cadastro Realizado com Sucesso!",
-        "subtitle": "Sua conta foi criada e está aguardando aprovação",
-        "message": "Você receberá uma notificação por email assim que sua conta for aprovada e liberada para acesso.",
+        "subtitle": "Sua conta foi criada! Siga os próximos passos para ativar sua conta:",
+        "step1": {
+          "title": "Confirme seu Email",
+          "message": "Enviamos um link de confirmação para seu email. Clique no link para verificar seu endereço de email."
+        },
+        "step2": {
+          "title": "Aguarde a Aprovação",
+          "message": "Após confirmar seu email, nossa equipe analisará seu cadastro. Você receberá uma notificação por email quando sua conta for aprovada."
+        },
+        "emailNote": "Não esqueça de verificar sua caixa de spam caso não encontre o email de confirmação.",
         "backToLogin": "Voltar para o Login",
         "thankYou": "Obrigado por se cadastrar!"
       },
