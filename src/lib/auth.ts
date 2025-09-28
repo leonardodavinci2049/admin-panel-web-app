@@ -1,9 +1,14 @@
-import prisma from "@/lib/prisma";
-import { prismaAdapter } from "better-auth/adapters/prisma";
 import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
+import { organization } from "better-auth/plugins"
+
+import prisma from "@/lib/prisma";
+
+
 import { envs } from "@/core/config";
 import { Resend } from "resend";
+
 import TemplateVerifyEmail from "@/components/emails/TemplateVerifyEmail.tsx";
 import TemplateForgotPasswordEmail from "@/components/emails/TemplateForgotPasswordEmail";
 
@@ -69,5 +74,5 @@ export const auth = betterAuth({
     sendOnSignUp: false, // Temporariamente desabilitado
   },
 
-  plugins: [nextCookies()],
+  plugins: [ organization(), nextCookies(),],
 });

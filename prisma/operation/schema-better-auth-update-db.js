@@ -32,6 +32,7 @@ const tableDefinitions = {
     ipAddress: "VARCHAR(45) NULL",
     userAgent: "TEXT NULL",
     userId: "VARCHAR(255) NOT NULL",
+    activeOrganizationId: "VARCHAR(255) NULL",
   },
 
   tbl_account: {
@@ -59,6 +60,33 @@ const tableDefinitions = {
     createdAt: "DATETIME NULL DEFAULT CURRENT_TIMESTAMP",
     updatedAt:
       "DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+  },
+
+  tbl_organization: {
+    id: "VARCHAR(255) NOT NULL PRIMARY KEY",
+    name: "TEXT NOT NULL",
+    slug: "VARCHAR(255) NULL",
+    logo: "TEXT NULL",
+    createdAt: "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP",
+    metadata: "TEXT NULL",
+  },
+
+  tbl_member: {
+    id: "VARCHAR(255) NOT NULL PRIMARY KEY",
+    organizationId: "VARCHAR(255) NOT NULL",
+    userId: "VARCHAR(255) NOT NULL",
+    role: "TEXT NOT NULL",
+    createdAt: "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP",
+  },
+
+  tbl_invitation: {
+    id: "VARCHAR(255) NOT NULL PRIMARY KEY",
+    organizationId: "VARCHAR(255) NOT NULL",
+    email: "TEXT NOT NULL",
+    role: "TEXT NULL",
+    status: "TEXT NOT NULL",
+    expiresAt: "DATETIME NOT NULL",
+    inviterId: "VARCHAR(255) NOT NULL",
   },
 };
 
@@ -172,6 +200,17 @@ async function createIndexesAndConstraints(connection) {
     // Índices para tbl_account
     `CREATE INDEX IF NOT EXISTS account_userId_fkey ON tbl_account(userId)`,
 
+    // Índices para tbl_organization
+    `CREATE UNIQUE INDEX IF NOT EXISTS organization_slug_unique ON tbl_organization(slug)`,
+
+    // Índices para tbl_member
+    `CREATE INDEX IF NOT EXISTS member_organizationId_fkey ON tbl_member(organizationId)`,
+    `CREATE INDEX IF NOT EXISTS member_userId_fkey ON tbl_member(userId)`,
+
+    // Índices para tbl_invitation
+    `CREATE INDEX IF NOT EXISTS invitation_organizationId_fkey ON tbl_invitation(organizationId)`,
+    `CREATE INDEX IF NOT EXISTS invitation_inviterId_fkey ON tbl_invitation(inviterId)`,
+
     // Índices para tbl_verification
     // Não há índices únicos específicos definidos no schema Prisma além do ID
   ];
@@ -185,6 +224,18 @@ async function createIndexesAndConstraints(connection) {
     // Foreign keys para tbl_account
     `ALTER TABLE tbl_account ADD CONSTRAINT fk_account_user 
      FOREIGN KEY (userId) REFERENCES tbl_user(id) ON DELETE CASCADE`,
+
+    // Foreign keys para tbl_member
+    `ALTER TABLE tbl_member ADD CONSTRAINT fk_member_organization 
+     FOREIGN KEY (organizationId) REFERENCES tbl_organization(id) ON DELETE CASCADE`,
+    `ALTER TABLE tbl_member ADD CONSTRAINT fk_member_user 
+     FOREIGN KEY (userId) REFERENCES tbl_user(id) ON DELETE CASCADE`,
+
+    // Foreign keys para tbl_invitation
+    `ALTER TABLE tbl_invitation ADD CONSTRAINT fk_invitation_organization 
+     FOREIGN KEY (organizationId) REFERENCES tbl_organization(id) ON DELETE CASCADE`,
+    `ALTER TABLE tbl_invitation ADD CONSTRAINT fk_invitation_inviter 
+     FOREIGN KEY (inviterId) REFERENCES tbl_user(id) ON DELETE CASCADE`,
   ];
 
   // Criar índices
