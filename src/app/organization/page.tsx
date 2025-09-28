@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,10 +11,13 @@ import {
 import Link from "next/link";
 import { getOrganizations } from "@/server/organizations";
 import { CreateOrganizationForm } from "@/components/forms/create-organization-form";
-const  OrganizationPage = async () => {
+
+// Força renderização dinâmica devido ao uso de headers() na autenticação
+export const dynamic = "force-dynamic";
+const OrganizationPage = async () => {
   const organizations = await getOrganizations();
   return (
-    <div className="flex flex-col gap-2 items-center justify-center h-screen">
+    <div className="flex h-screen flex-col items-center justify-center gap-2">
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Create Organization</Button>
@@ -43,6 +45,6 @@ const  OrganizationPage = async () => {
       </div>
     </div>
   );
-}
+};
 
-export default OrganizationPage
+export default OrganizationPage;
