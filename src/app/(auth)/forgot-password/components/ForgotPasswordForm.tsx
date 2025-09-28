@@ -15,7 +15,7 @@ import { authClient } from "@/lib/auth-client";
 import {
   forgotPasswordSchema,
   type ForgotPasswordFormData,
-} from "../_common-validations/validation";
+} from "../../_common-validations/validation";
 
 export function ForgotPasswordForm({
   className,
@@ -79,27 +79,32 @@ export function ForgotPasswordForm({
         redirectTo: "/reset-password",
       });
 
+      // SEGURANÇA: Sempre mostrar a mesma mensagem de sucesso
+      // independente do email existir ou não, para evitar enumeração de usuários
       if (error) {
-        // Tratar diferentes tipos de erro
+        // Log do erro no servidor para monitoramento, mas não expor ao usuário
+        console.error("Forgot password error:", error);
+
+        // Para erros de rede ou sistema, mostrar erro genérico
         if (
-          error.message?.includes("User not found") ||
-          error.message?.includes("Email not found")
+          !error.message?.includes("User not found") &&
+          !error.message?.includes("Email not found")
         ) {
-          toast.error("Email não encontrado em nossa base de dados.");
-        } else {
-          toast.error(
-            error.message ||
-              "Erro ao enviar email de recuperação. Tente novamente.",
-          );
+          toast.error("Erro interno do sistema. Tente novamente mais tarde.");
+          return;
         }
-      } else {
-        toast.success("Enviamos instruções de recuperação para seu email.");
-        // Limpar o formulário após sucesso
-        (event.target as HTMLFormElement).reset();
       }
+
+      // Sempre mostrar mensagem de sucesso (mesmo se email não existir)
+      toast.success(
+        "Se este email estiver registrado, você receberá instruções de recuperação em breve.",
+      );
+
+      // Limpar o formulário sempre
+      (event.target as HTMLFormElement).reset();
     } catch (error) {
       console.error("Forgot password error:", error);
-      toast.error("Erro ao enviar email de recuperação. Tente novamente.");
+      toast.error("Erro interno do sistema. Tente novamente mais tarde.");
     } finally {
       setIsLoading(false);
     }
