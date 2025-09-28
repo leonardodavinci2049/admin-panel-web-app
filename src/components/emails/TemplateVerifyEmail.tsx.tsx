@@ -1,109 +1,83 @@
 import * as React from "react";
 import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
   Html,
-  Preview,
+  Head,
+  Body,
+  Container,
   Section,
   Text,
+  Button,
+  Hr,
   Tailwind,
 } from "@react-email/components";
 
 interface VerifyEmailProps {
-  userEmail?: string;
-  resetLink?: string;
+  userName: string;
+  verifyUrl: string;
 }
 
-const TemplateVerifyEmail = (props: VerifyEmailProps) => {
-  const { userEmail, resetLink } = props;
-
+const VerifyEmail = (props: VerifyEmailProps) => {
+  const { userName, verifyUrl } = props;
   return (
     <Html lang="pt" dir="ltr">
-      <Head />
-      <Preview>Redefinir sua senha - Ação necessária</Preview>
       <Tailwind>
+        <Head />
         <Body className="bg-gray-100 py-[40px] font-sans">
-          <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white p-[40px] shadow-sm">
-            {/* Header */}
-            <Section className="mb-[32px] text-center">
-              <Heading className="m-0 mb-[8px] text-[32px] font-bold text-gray-900">
-                Solicitação de Redefinição de Senha
-              </Heading>
-              <Text className="m-0 text-[16px] text-gray-600">
-                Recebemos uma solicitação para redefinir sua senha
+          <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white p-[32px]">
+            <Section>
+              <Text className="mt-0 mb-[16px] text-[24px] font-bold text-gray-900">
+                Verifique seu endereço de e-mail
               </Text>
-            </Section>
 
-            {/* Main Content */}
-            <Section className="mb-[32px]">
-              <Text className="mb-[16px] text-[16px] leading-[24px] text-gray-700">
-                Olá,
+              <Text className="mt-0 mb-[24px] text-[16px] leading-[24px] text-gray-700">
+                Obrigado {userName} por se cadastrar! Para completar seu
+                registro e proteger sua conta, por favor verifique seu endereço
+                de e-mail clicando no botão abaixo.
               </Text>
-              <Text className="mb-[16px] text-[16px] leading-[24px] text-gray-700">
-                Recebemos uma solicitação para redefinir a senha da sua conta
-                associada ao e-mail <strong>{userEmail}</strong>.
-              </Text>
-              <Text className="mb-[24px] text-[16px] leading-[24px] text-gray-700">
-                Clique no botão abaixo para criar uma nova senha. Este link
-                expirará em 24 horas por motivos de segurança.
-              </Text>
-            </Section>
 
-            {/* Reset Button */}
-            <Section className="mb-[32px] text-center">
-              <Button
-                href={resetLink}
-                className="box-border inline-block rounded-[8px] bg-blue-600 px-[32px] py-[16px] text-[16px] font-semibold text-white no-underline"
-              >
-                Redefinir Senha
-              </Button>
-            </Section>
+              <Section className="mb-[32px] text-center">
+                <Button
+                  href={verifyUrl}
+                  className="box-border rounded-[6px] bg-blue-600 px-[32px] py-[12px] text-[16px] font-medium text-white no-underline"
+                >
+                  Verificar Endereço de E-mail
+                </Button>
+              </Section>
 
-            {/* Security Notice */}
-            <Section className="mb-[32px] rounded-[8px] bg-gray-50 p-[24px]">
-              <Text className="mb-[12px] text-[14px] leading-[20px] font-semibold text-gray-600">
-                🔒 Aviso de Segurança
+              <Text className="mt-0 mb-[24px] text-[14px] leading-[20px] text-gray-600">
+                Se o botão não funcionar, você pode copiar e colar este link em
+                seu navegador:
+                <br />
+                {verifyUrl}
               </Text>
-              <Text className="mb-[8px] text-[14px] leading-[20px] text-gray-600">
-                • Se você não solicitou esta redefinição de senha, ignore este
-                e-mail
-              </Text>
-              <Text className="mb-[8px] text-[14px] leading-[20px] text-gray-600">
-                • Este link expirará em 24 horas
-              </Text>
-              <Text className="m-0 text-[14px] leading-[20px] text-gray-600">
-                • Por segurança, nunca compartilhe este link com ninguém
-              </Text>
-            </Section>
 
-            {/* Alternative Link */}
-            <Section className="mb-[32px]">
-              <Text className="mb-[8px] text-[14px] leading-[20px] text-gray-600">
-                Se o botão não funcionar, copie e cole este link no seu
-                navegador:
+              <Text className="mt-0 mb-[32px] text-[14px] leading-[20px] text-gray-600">
+                Este link de verificação expirará em 24 horas. Se você não criou
+                uma conta, pode ignorar este e-mail com segurança.
               </Text>
-              <Text className="text-[14px] break-all text-blue-600">
-                {resetLink}
-              </Text>
-            </Section>
 
-            {/* Footer */}
-            <Section className="border-t border-gray-200 pt-[24px]">
-              <Text className="mb-[8px] text-[12px] leading-[16px] text-gray-500">
-                Este e-mail foi enviado pela SuaEmpresa Ltda.
-              </Text>
-              <Text className="m-0 mb-[8px] text-[12px] leading-[16px] text-gray-500">
-                Rua dos Negócios, 123, Sala 100, Cidade, Estado, CEP 12345-678
-              </Text>
+              <Hr className="my-[24px] border-gray-200" />
+
               <Text className="m-0 text-[12px] leading-[16px] text-gray-500">
-                © {new Date().getFullYear()} SuaEmpresa Ltda. Todos os direitos
-                reservados. |
-                <a href="#" className="ml-[4px] text-blue-600 no-underline">
-                  Cancelar inscrição
-                </a>
+                Atenciosamente,
+                <br />A Equipe
+              </Text>
+            </Section>
+
+            <Section className="mt-[32px] border-t border-gray-200 pt-[24px]">
+              <Text className="m-0 text-center text-[12px] leading-[16px] text-gray-400">
+                Nome da Empresa
+                <br />
+                Rua do Negócio, 123, Sala 100
+                <br />
+                Cidade, Estado 12345
+              </Text>
+
+              <Text className="m-0 mt-[8px] text-center text-[12px] leading-[16px] text-gray-400">
+                <a href="#" className="text-gray-400 underline">
+                  Descadastrar
+                </a>{" "}
+                | © 2026 Nome da Empresa. Todos os direitos reservados.
               </Text>
             </Section>
           </Container>
@@ -113,5 +87,4 @@ const TemplateVerifyEmail = (props: VerifyEmailProps) => {
   );
 };
 
-
-export default TemplateVerifyEmail;
+export default VerifyEmail;

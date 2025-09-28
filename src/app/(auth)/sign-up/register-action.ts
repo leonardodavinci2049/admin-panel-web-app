@@ -78,7 +78,7 @@ async function registerAction(
 
     // Se chegou até aqui, o registro foi bem-sucedido
     // Redirecionar para a página de sucesso ao invés do dashboard
-    redirect("/sign-in/success?success=true");
+    redirect("/sign-up/success?success=true");
   } catch (error) {
     // Tratar erro de redirect (esperado após registro bem-sucedido)
     if (isRedirectError(error)) {

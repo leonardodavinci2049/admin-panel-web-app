@@ -43,7 +43,7 @@ export const auth = betterAuth({
         throw error;
       }
     },
-    requireEmailVerification: false, // Temporariamente desabilitado para evitar problemas de UX
+    requireEmailVerification: true, // Ativar verificação de email
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
@@ -55,8 +55,8 @@ export const auth = betterAuth({
           to: user.email,
           subject: "Verify your email",
           react: TemplateVerifyEmail({
-            userEmail: user.name || user.email,
-            resetLink: url,
+            userName: user.name || user.email,
+            verifyUrl: url,
           }),
         });
 
