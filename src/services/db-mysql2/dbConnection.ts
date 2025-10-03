@@ -62,6 +62,7 @@ class DatabaseService {
         waitForConnections: true,
         connectionLimit: 10,
         queueLimit: 0,
+        multipleStatements: true, // Permite múltiplas statements e procedures
       };
 
       this.poolConnection = createPool(config);
@@ -118,10 +119,41 @@ class DatabaseService {
   ): Promise<T[]> {
     try {
       const pool = this.ensureConnection();
-      const [results] = await pool.execute<T[]>(queryString, params);
-      return results;
+
+      // Se for uma CALL procedure, usa query ao invés de execute
+      // pois procedures retornam múltiplos resultsets
+      const isStoredProcedure = queryString
+        .trim()
+        .toUpperCase()
+        .startsWith("CALL");
+
+      console.log("[selectExecute] Query:", queryString);
+      console.log("[selectExecute] Is Stored Procedure:", isStoredProcedure);
+
+      if (isStoredProcedure) {
+        // Para procedures, usa query que suporta múltiplos resultsets
+        console.log("[selectExecute] Executando com pool.query()");
+        const [results] = await pool.query<T[]>(queryString, params);
+        console.log(
+          "[selectExecute] Resultado obtido, tipo:",
+          typeof results,
+          "length:",
+          Array.isArray(results) ? results.length : "N/A",
+        );
+        return results;
+      } else {
+        // Para queries normais, usa execute (mais seguro)
+        console.log("[selectExecute] Executando com pool.execute()");
+        const [results] = await pool.execute<T[]>(queryString, params);
+        return results;
+      }
     } catch (error) {
-      console.error("Erro ao executar selectExecute:", error);
+      console.error("[selectExecute] ERRO DETALHADO:", {
+        mensagem: error instanceof Error ? error.message : String(error),
+        erro_completo: error,
+        query: queryString,
+        params: params,
+      });
       throw new ErroExecucaoConsulta(
         "Falha ao executar consulta SELECT com execute",
         queryString,
@@ -204,8 +236,6 @@ class DatabaseService {
       );
     }
   }
-
-
 
   // Fechamento do pool
   async closeConnection(): Promise<void> {
