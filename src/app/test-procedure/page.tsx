@@ -52,22 +52,6 @@ const PROCEDURE_EXAMPLES = [
     type: "generic",
   },
   {
-    name: "Create Taxonomy",
-    procedure: `CALL sp_taxonomy_create_v2(
-  '19372846-1937-1937-1937-193719371937',
-  2, 
-  1,
-  2, 
-  1,   
-  1, 
-  0, 
-  'Nome TAXONOMIA', 
-  'PE_SLUG',
-  1 
-)`,
-    type: "generic",
-  },
-  {
     name: "Simple Data Query",
     procedure: "CALL sp_get_all_users()",
     type: "data",
