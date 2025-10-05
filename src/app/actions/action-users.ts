@@ -21,7 +21,7 @@ export const getCurrentUser = async () => {
   });
 
   if (!currentUser) {
-     redirect("/sign-in");
+    redirect("/sign-in");
   }
 
   return {
@@ -29,9 +29,6 @@ export const getCurrentUser = async () => {
     currentUser,
   };
 };
-
-
-
 
 export const getUsers = async (organizationId: string) => {
   try {

@@ -1,11 +1,10 @@
 "use client";
 
-import React from 'react'
-import { Button } from '@/components/ui/button';
-import { authClient } from '@/lib/auth-client';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
-import { LogOut } from 'lucide-react';
-
+import { LogOut } from "lucide-react";
 
 const Logout = () => {
   const router = useRouter();
@@ -20,6 +19,6 @@ const Logout = () => {
       Logout <LogOut className="size-4" />
     </Button>
   );
-}
+};
 
-export default Logout
+export default Logout;

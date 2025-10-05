@@ -84,6 +84,7 @@ model Organization {
   @@map("tbl_organization")
 }
 
+
 model Member {
   id             String       @id
   organizationId String

@@ -1,17 +1,18 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { nextCookies } from "better-auth/next-js";
-import { organization } from "better-auth/plugins"
+import { organization } from "better-auth/plugins";
 
 import prisma from "@/lib/prisma";
-
 
 import { envs } from "@/core/config";
 import { Resend } from "resend";
 
 import TemplateVerifyEmail from "@/components/emails/TemplateVerifyEmail.tsx";
 import TemplateForgotPasswordEmail from "@/components/emails/TemplateForgotPasswordEmail";
-import { getActiveOrganization } from "@/app/actions/organizations";
+import { getActiveOrganization } from "@/app/actions/action-organizations";
+import { ac, admin, member, owner } from "./auth/auth-permissions";
+import TemplateOrganizationInvitation from "@/components/emails/TemplateOrganizationInvitation";
 
 const resend = new Resend(envs.RESEND_API_KEY);
 
@@ -74,22 +75,47 @@ export const auth = betterAuth({
     },
     sendOnSignUp: false, // Temporariamente desabilitado
   },
-    databaseHooks: {
-        session: {
-            create: {
-                before: async (session) => {
-                    const organization = await getActiveOrganization(session.userId)
-                    return {
-                        data: {
-                            ...session,
-                            activeOrganizationId: organization?.id
-                        }
-                    }
-                }
-            }
-        }
+  databaseHooks: {
+    session: {
+      create: {
+        before: async (session) => {
+          const organization = await getActiveOrganization(session.userId);
+          return {
+            data: {
+              ...session,
+              activeOrganizationId: organization?.id,
+            },
+          };
+        },
+      },
     },
+  },
 
+  plugins: [
+    organization({
+        async sendInvitationEmail(data) {
+            const inviteLink = `${process.env.NEXT_PUBLIC_APP_URL}/api/accept-invitation/${data.id}`
 
-  plugins: [ organization(), nextCookies(),],
+            resend.emails.send({
+                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+                to: data.email,
+                subject: "You've been invited to join our organization",
+                react: TemplateOrganizationInvitation({
+                    email: data.email,
+                    invitedByUsername: data.inviter.user.name,
+                    invitedByEmail: data.inviter.user.email,
+                    teamName: data.organization.name,
+                    inviteLink
+                })
+            })
+        },
+      ac,
+      roles: {
+        owner,
+        admin,
+        member,
+      },
+    }),
+    nextCookies(),
+  ],
 });
