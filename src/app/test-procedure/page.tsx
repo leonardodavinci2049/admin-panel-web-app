@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Copy, Check } from "lucide-react";
+import { toast } from "sonner";
 
 interface ProcedureResult {
   success: boolean;
@@ -23,7 +25,6 @@ interface ProcedureResult {
     feedback: unknown;
     operationResult: unknown;
     recordCount: number;
-    rawResult: unknown;
   };
   formattedResult: string;
 }
@@ -64,6 +65,7 @@ export default function TestProcedurePage() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ProcedureResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const executeProcedure = async () => {
     if (!procedure.trim()) {
@@ -108,13 +110,29 @@ export default function TestProcedurePage() {
     setError(null);
   };
 
+  const copyToClipboard = async () => {
+    if (!result) return;
+
+    try {
+      await navigator.clipboard.writeText(
+        JSON.stringify(result.result, null, 2),
+      );
+      setCopied(true);
+      toast.success("JSON copiado para a área de transferência!");
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      toast.error("Erro ao copiar para a área de transferência");
+      console.error("Erro ao copiar:", err);
+    }
+  };
+
   return (
     <div className="container mx-auto max-w-6xl p-6">
       <div className="mb-6">
         <h1 className="mb-2 text-3xl font-bold">
           Teste de Procedures Genéricas
         </h1>
-        <p className="text-gray-600">
+        <p className="text-muted-foreground">
           Interface para testar qualquer procedure MariaDB/MySQL de forma
           interativa
         </p>
@@ -139,13 +157,13 @@ export default function TestProcedurePage() {
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="w-full rounded-md border border-gray-300 p-2 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                  className="border-input bg-background focus:ring-ring w-full rounded-md border p-2 focus:border-transparent focus:ring-2"
                 >
                   <option value="generic">Generic (Padrão)</option>
                   <option value="data">Data Only</option>
                   <option value="modify">Modify (INSERT/UPDATE/DELETE)</option>
                 </select>
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="text-muted-foreground mt-1 text-xs">
                   {type === "generic" &&
                     "Para procedures com múltiplos resultsets"}
                   {type === "data" &&
@@ -163,7 +181,7 @@ export default function TestProcedurePage() {
                   value={procedure}
                   onChange={(e) => setProcedure(e.target.value)}
                   placeholder="CALL sp_example(1, 'parameter', UNIX_TIMESTAMP())"
-                  className="h-32 w-full rounded-md border border-gray-300 p-3 font-mono text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                  className="border-input bg-background focus:ring-ring h-32 w-full rounded-md border p-3 font-mono text-sm focus:border-transparent focus:ring-2"
                 />
               </div>
 
@@ -178,8 +196,8 @@ export default function TestProcedurePage() {
 
               {/* Error Display */}
               {error && (
-                <div className="rounded-md border border-red-200 bg-red-50 p-3">
-                  <p className="text-sm text-red-800">{error}</p>
+                <div className="border-destructive/50 bg-destructive/10 rounded-md border p-3">
+                  <p className="text-destructive text-sm">{error}</p>
                 </div>
               )}
             </CardContent>
@@ -205,7 +223,7 @@ export default function TestProcedurePage() {
                   >
                     <div>
                       <div className="font-medium">{example.name}</div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-muted-foreground text-xs">
                         Tipo: {example.type}
                       </div>
                     </div>
@@ -235,13 +253,13 @@ export default function TestProcedurePage() {
                     <div
                       className={`rounded px-2 py-1 text-xs font-medium ${
                         result.result.success
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
+                          ? "bg-green-500/10 text-green-700 dark:bg-green-500/20 dark:text-green-400"
+                          : "bg-destructive/10 text-destructive dark:bg-destructive/20"
                       }`}
                     >
                       {result.result.success ? "SUCESSO" : "ERRO"}
                     </div>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-muted-foreground text-sm">
                       Código: {result.result.statusCode}
                     </span>
                   </div>
@@ -249,7 +267,7 @@ export default function TestProcedurePage() {
                   {/* Message */}
                   <div>
                     <h4 className="mb-1 font-medium">Mensagem</h4>
-                    <p className="rounded bg-gray-50 p-2 text-sm text-gray-700">
+                    <p className="bg-muted rounded p-2 text-sm">
                       {result.result.message}
                     </p>
                   </div>
@@ -268,23 +286,41 @@ export default function TestProcedurePage() {
                   {/* Formatted Result */}
                   <div>
                     <h4 className="mb-2 font-medium">Resultado Formatado</h4>
-                    <pre className="max-h-96 overflow-auto rounded bg-gray-900 p-3 text-xs whitespace-pre-wrap text-green-400">
+                    <pre className="max-h-96 overflow-auto rounded bg-slate-950 p-3 text-xs whitespace-pre-wrap text-green-400 dark:bg-slate-900 dark:text-green-300">
                       {result.formattedResult}
                     </pre>
                   </div>
 
                   {/* Raw JSON */}
-                  <details className="mt-4">
-                    <summary className="cursor-pointer text-sm font-medium">
-                      Ver JSON Completo
-                    </summary>
-                    <pre className="mt-2 max-h-64 overflow-auto rounded bg-gray-50 p-3 text-xs">
+                  <div className="mt-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <h4 className="text-sm font-medium">JSON Completo</h4>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={copyToClipboard}
+                        className="h-8 gap-2"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="h-3.5 w-3.5" />
+                            Copiado!
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="h-3.5 w-3.5" />
+                            Copiar JSON
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                    <pre className="bg-muted text-foreground max-h-64 overflow-auto rounded p-3 font-mono text-xs">
                       {JSON.stringify(result.result, null, 2)}
                     </pre>
-                  </details>
+                  </div>
                 </div>
               ) : (
-                <div className="py-8 text-center text-gray-500">
+                <div className="text-muted-foreground py-8 text-center">
                   <p>Nenhum resultado ainda</p>
                   <p className="text-sm">
                     Execute uma procedure para ver o resultado

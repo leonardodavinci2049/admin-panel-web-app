@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/dialog";
 
 import Link from "next/link";
-import { getOrganizations } from "@/server/organizations";
+
 import { CreateOrganizationForm } from "@/components/forms/create-organization-form";
+import { getOrganizations } from "../actions/organizations";
 
 // Tipo para a organização retornada pela função getOrganizations
 type OrganizationWithDetails = Awaited<
@@ -20,7 +21,9 @@ type OrganizationWithDetails = Awaited<
 // Força renderização dinâmica devido ao uso de headers() na autenticação
 export const dynamic = "force-dynamic";
 const OrganizationPage = async () => {
+  
   const organizations = await getOrganizations();
+
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-2">
       <Dialog>

@@ -9,7 +9,7 @@ import {
   GenericProcedureResponse,
   GenericSpResult,
   ArrayProcedureResponse,
-  GENERIC_STATUS_CODES
+  GENERIC_STATUS_CODES,
 } from "./types/generic.types";
 import { ResponseFormatter } from "./utils/response-formatter";
 import { ProcedureValidator } from "./utils/procedure-validator";
@@ -27,21 +27,22 @@ export class GenericService {
     if (!ProcedureValidator.isValidProcedureCall(callProcedureString)) {
       return ResponseFormatter.formatErrorResponse(
         "Chamada de procedure inválida. Use o formato: CALL sp_name(params)",
-        GENERIC_STATUS_CODES.VALIDATION_ERROR
+        GENERIC_STATUS_CODES.VALIDATION_ERROR,
       );
     }
 
     if (!ProcedureValidator.isSafeProcedureCall(callProcedureString)) {
       return ResponseFormatter.formatErrorResponse(
         "Chamada de procedure contém comandos não permitidos",
-        GENERIC_STATUS_CODES.VALIDATION_ERROR
+        GENERIC_STATUS_CODES.VALIDATION_ERROR,
       );
     }
 
     try {
       // Sanitiza a chamada
-      const sanitizedCall = ProcedureValidator.sanitizeProcedureCall(callProcedureString);
-      
+      const sanitizedCall =
+        ProcedureValidator.sanitizeProcedureCall(callProcedureString);
+
       const resultData = (await dbService.selectExecute(
         sanitizedCall,
       )) as GenericSpResult<T>;
@@ -67,12 +68,13 @@ export class GenericService {
     if (!ProcedureValidator.isValidProcedureCall(callProcedureString)) {
       return ResponseFormatter.formatErrorResponse(
         "Chamada de procedure inválida. Use o formato: CALL sp_name(params)",
-        GENERIC_STATUS_CODES.VALIDATION_ERROR
+        GENERIC_STATUS_CODES.VALIDATION_ERROR,
       );
     }
 
     try {
-      const sanitizedCall = ProcedureValidator.sanitizeProcedureCall(callProcedureString);
+      const sanitizedCall =
+        ProcedureValidator.sanitizeProcedureCall(callProcedureString);
       const resultData = (await dbService.selectExecute(sanitizedCall)) as T[];
 
       return ResponseFormatter.formatDataResponse(resultData);
@@ -96,15 +98,21 @@ export class GenericService {
     if (!ProcedureValidator.isValidProcedureCall(callProcedureString)) {
       return ResponseFormatter.formatErrorResponse(
         "Chamada de procedure inválida. Use o formato: CALL sp_name(params)",
-        GENERIC_STATUS_CODES.VALIDATION_ERROR
+        GENERIC_STATUS_CODES.VALIDATION_ERROR,
       );
     }
 
     try {
-      const sanitizedCall = ProcedureValidator.sanitizeProcedureCall(callProcedureString);
+      const sanitizedCall =
+        ProcedureValidator.sanitizeProcedureCall(callProcedureString);
       const resultData = await dbService.ModifyExecute(sanitizedCall);
 
-      return ResponseFormatter.formatModifyResponse(resultData as unknown as { affectedRows: number; [key: string]: unknown });
+      return ResponseFormatter.formatModifyResponse(
+        resultData as unknown as {
+          affectedRows: number;
+          [key: string]: unknown;
+        },
+      );
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : MESSAGES.UNKNOWN_ERROR;
@@ -136,8 +144,9 @@ export class GenericService {
     errors: string[];
   } {
     const errors: string[] = [];
-    
-    const isValid = ProcedureValidator.isValidProcedureCall(callProcedureString);
+
+    const isValid =
+      ProcedureValidator.isValidProcedureCall(callProcedureString);
     if (!isValid) {
       errors.push("Formato de chamada inválido. Use: CALL sp_name(params)");
     }
@@ -147,13 +156,14 @@ export class GenericService {
       errors.push("Chamada contém comandos não permitidos");
     }
 
-    const procedureName = ProcedureValidator.extractProcedureName(callProcedureString);
+    const procedureName =
+      ProcedureValidator.extractProcedureName(callProcedureString);
 
     return {
       isValid,
       isSafe,
       procedureName,
-      errors
+      errors,
     };
   }
 
@@ -176,7 +186,7 @@ export class GenericService {
         recordId,
         response.success ? 0 : 1,
         response.message,
-        response.rawResult as SpResultData,
+        response.data as SpResultData,
         response.recordCount,
         "",
       );

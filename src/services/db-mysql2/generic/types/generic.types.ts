@@ -43,7 +43,6 @@ export interface GenericProcedureResponse<T = unknown> {
   feedback: GenericSpFeedback | null;
   operationResult: GenericSpOperationResult | null;
   recordCount: number;
-  rawResult: unknown;
 }
 
 /**

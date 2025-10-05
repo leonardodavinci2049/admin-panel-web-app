@@ -52,7 +52,6 @@ export class ResponseFormatter {
         feedback,
         operationResult,
         recordCount: dataRecords?.length || 0,
-        rawResult: resultData,
       };
     } catch (err) {
       return {
@@ -63,7 +62,6 @@ export class ResponseFormatter {
         feedback: null,
         operationResult: null,
         recordCount: 0,
-        rawResult: resultData,
       };
     }
   }
@@ -84,7 +82,6 @@ export class ResponseFormatter {
       feedback: null,
       operationResult: null,
       recordCount: resultData.length,
-      rawResult: resultData,
     };
   }
 
@@ -111,7 +108,6 @@ export class ResponseFormatter {
       feedback: null,
       operationResult: null,
       recordCount: resultData.affectedRows,
-      rawResult: resultData,
     };
   }
 
@@ -135,7 +131,6 @@ export class ResponseFormatter {
       feedback: null,
       operationResult: null,
       recordCount: 0,
-      rawResult: null,
     };
   }
 

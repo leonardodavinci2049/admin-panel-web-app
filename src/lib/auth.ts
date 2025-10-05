@@ -11,6 +11,7 @@ import { Resend } from "resend";
 
 import TemplateVerifyEmail from "@/components/emails/TemplateVerifyEmail.tsx";
 import TemplateForgotPasswordEmail from "@/components/emails/TemplateForgotPasswordEmail";
+import { getActiveOrganization } from "@/app/actions/organizations";
 
 const resend = new Resend(envs.RESEND_API_KEY);
 
@@ -73,6 +74,22 @@ export const auth = betterAuth({
     },
     sendOnSignUp: false, // Temporariamente desabilitado
   },
+    databaseHooks: {
+        session: {
+            create: {
+                before: async (session) => {
+                    const organization = await getActiveOrganization(session.userId)
+                    return {
+                        data: {
+                            ...session,
+                            activeOrganizationId: organization?.id
+                        }
+                    }
+                }
+            }
+        }
+    },
+
 
   plugins: [ organization(), nextCookies(),],
 });
