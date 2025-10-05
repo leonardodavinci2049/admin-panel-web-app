@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { getCurrentUser } from "./users";
+import { getCurrentUser } from "./action-users";
 
 export async function getOrganizations() {
   const { currentUser } = await getCurrentUser();

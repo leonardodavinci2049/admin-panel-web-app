@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "./GoogleIcon";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 // Componente do botão do Google com estado de loading
 const GoogleButton = () => {

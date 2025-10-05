@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import type { Organization } from "@generated/prisma";
 
@@ -17,7 +17,6 @@ interface OrganizationSwitcherProps {
 }
 
 const OrganizationSwitcher = ({ organizations }: OrganizationSwitcherProps) => {
-  
   const { data: activeOrganization } = authClient.useActiveOrganization();
 
   const handleChangeOrganization = async (organizationId: string) => {
